@@ -1,24 +1,5 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Odin project advanced forms exercise, https://www.theodinproject.com/lessons/ruby-on-rails-flight-booker
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Application which enables user to choose certain date and location, then a list of possible flights will be presented to the user from which he can choose a desired one-way flight route.     
