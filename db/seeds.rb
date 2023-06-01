@@ -25,9 +25,27 @@ airport_code_city_values = [
     ["SAT", "San Antonio"],
     ["DEN", "Denver"],
     ["DET", "Detroit"],
-    ["PHL", "Philadelphia"],
+    ["PHL", "Philadelphia"]
 ]
 
 airport_code_city_values.each do |code, city|
   Airport.create(airport_code: code, city_name: city)
 end
+
+airport_code_city_values.each do |departure_code, city|
+  departure_id = Airport.where(airport_code: departure_code).ids.first
+  airport_code_city_values.each do |arrival_code, city|
+    next if departure_code == arrival_code
+    now = Time.now
+    arrival_id = Airport.where(airport_code: arrival_code).ids.first
+    flight_duration = ['1:00', '1:15', '1:30', '1:45', '2:00', '2:30', '2:15', '3:00'].sample
+    20.times do |i|
+      now += (40..1440).to_a.sample.minutes
+      Flight.create( departure_airport_id: departure_id, arrival_airport_id: arrival_id, datetime: now, flight_duration: flight_duration)
+    end
+  end
+end
+
+
+
+
