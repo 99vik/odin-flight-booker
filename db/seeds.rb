@@ -39,8 +39,8 @@ airport_code_city_values.each do |departure_code, city|
     now = Time.now
     arrival_id = Airport.where(airport_code: arrival_code).ids.first
     flight_duration = ['1:00', '1:15', '1:30', '1:45', '2:00', '2:30', '2:15', '3:00'].sample
-    20.times do |i|
-      now += (40..1440).to_a.sample.minutes
+    30.times do |i|
+      now += (20..700).to_a.sample.minutes
       Flight.create( departure_airport_id: departure_id, arrival_airport_id: arrival_id, datetime: now, flight_duration: flight_duration)
     end
   end
