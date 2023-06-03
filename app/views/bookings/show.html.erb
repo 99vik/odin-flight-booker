@@ -1,9 +1,12 @@
-<%= link_to "Home page", root_path %>
-<div class="booking-info">
-    <p><%= @booking.flight.departure_airport.city_name %> -> <%= @booking.flight.arrival_airport.city_name %></p>
-    <% @booking.passengers.each do |passenger| %>
-        <p><%= passenger.first_name %></p>
-        <p><%= passenger.last_name %></p>
-        <p><%= passenger.email %></p>
-    <% end %>
+<div class="container">
+    <%= link_to "Home page", root_path, class: "home-link2" %>
+    <div class="booking-info">
+        <p>Date: <%= @booking.flight.datetime.to_date.to_fs(:long_ordinal) %></p>
+        <p>Departure: <%= @booking.flight.departure_airport.city_name %> (<%= @booking.flight.departure_airport.airport_code %>), at <%= @booking.flight.datetime.to_fs(:time) %></p>
+        <p>Arrival: <%= @booking.flight.arrival_airport.city_name %> (<%= @booking.flight.arrival_airport.airport_code %>), at <%= (@booking.flight.datetime + @booking.flight.flight_duration).to_fs(:time) %></p>
+        <p>Passengers:</p>
+        <% @booking.passengers.each do |passenger| %>
+            <p><%= passenger.first_name %> <%= passenger.last_name %>, <%= passenger.email %></p>
+        <% end %>
+    </div>
 </div>
