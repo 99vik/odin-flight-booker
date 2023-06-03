@@ -1,0 +1,34 @@
+<div class="top-bar">
+<%= link_to "Home page", root_path, class: 'home-link' %>
+    <div class="select-info-container">
+            <p>Departure: <%= @flight.departure_airport.city_name %> (<%= @flight.departure_airport.airport_code %>) at <%= @flight.datetime.to_fs(:time)%> -> Arrival: <%=@flight.arrival_airport.city_name %> (<%= @flight.arrival_airport.airport_code %>) at <%= (@flight.datetime + @flight.flight_duration).to_fs(:time) %></p>
+            <p class="date-info"><%= @flight.datetime.to_date.to_fs(:long_ordinal) %></p>
+    </div>
+</div>
+
+<%= form_with model: @booking do |form| %>
+    <%= form.hidden_field :flight_id, value: params[:flight]  %>
+    <% passenger_number = 1 %>
+    <div class="passenger-inputs-container">
+        <%= form.fields_for :passengers do |passenger_form| %>
+            <div class="passenger-input-container">
+                <p>Passenger <%= passenger_number %> information:</p>
+                <% passenger_number += 1 %>
+                <div>
+                    <%= passenger_form.label :first_name, "First name:" %>
+                    <%= passenger_form.text_field :first_name %>
+                </div>
+                <div>
+                    <%= passenger_form.label :last_name, "Last name:" %>
+                    <%= passenger_form.text_field :last_name %>
+                </div>
+                <div>
+                    <%= passenger_form.label :email, "Email:" %>
+                    <%= passenger_form.email_field :email %>
+                </div>
+            </div>
+        <% end %>
+    <div class="submit-btn-container"><%= form.submit "Submit", class: "submit-btn" %></div>
+    </div>
+<% end %>
+

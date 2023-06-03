@@ -1,4 +1,4 @@
-<%= form_for :search_query, url: flights_path, method: :get do |form| %>
+<%= form_for :search_query, method: :get do |form| %>
     <div class="search-bar">
         <div>
             <%= form.label :departure_airport, "From:" %>
@@ -13,27 +13,31 @@
             <%= form.date_field :date, min: Date.today, default: Date.today, value: Date.today %>
         </div>
         <div>
-            <%= form.label :number_of_tickets, "Passangers:" %>
+            <%= form.label :number_of_tickets, "Passengers:" %>
             <%= form.number_field :number_of_tickets, in: 1..4, step: 1, value: 1 %>
         </div>
-        <%= form.submit "Search" %>
+        <%= form.submit "Search", class: 'search-btn' %>
     </div>
 <% end %>
 
 <% if @query.nil? %>
     <h3 class="center-msg">Search for flights</h3>
+<% elsif @flights.empty? %>
+    <h3 class="center-msg">No flights found</h3>    
 <% else %>
     <div class="select-info-container">
         <p><%= @flights.first.departure_airport.city_name %> (<%= @flights.first.departure_airport.airport_code %>) -> <%= @flights.first.arrival_airport.city_name %> (<%= @flights.first.arrival_airport.airport_code %>)</p>
-        <p><%= @flights.first.datetime.to_date.to_fs(:long_ordinal) %></p>
+        <p class="date-info"><%= @flights.first.datetime.to_date.to_fs(:long_ordinal) %></p>
     </div>
+
     <div class="flights-container">
         <% @flights.each do |flight| %>
             <div class="flight-container">
                 <p>Departure: <%= flight.departure_airport.city_name %></p>
                 <p>Arrival: <%= flight.arrival_airport.city_name %></p>
                 <p>Time: <%= flight.datetime.to_fs(:time) %></p>
-                <p>Flight duration:<%= flight.flight_duration.to_fs(:time) %></p>
+                <p>Flight duration: <%= flight.flight_duration.to_fs(:time) %></p>
+                <%= link_to "", new_booking_path(flight: flight.id, passengers: params[:search_query][:number_of_tickets])  %>
             </div>
         <% end %>
     </div>
