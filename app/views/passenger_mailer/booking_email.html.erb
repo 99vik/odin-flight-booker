@@ -1,0 +1,9 @@
+<h1>Your flight has been succesfully booked!</h1>
+
+<h3>Thank you for booking flight <%= @passenger.first_name %> <%= @passenger.last_name %></h3>
+<p>Flight information:</p>
+<p>Departure: <%= @flight.departure_airport.city_name %></p>
+<p>Arrival: <%= @flight.arrival_airport.city_name %></p>
+<p>Date: <%= @flight.datetime.to_date.to_fs(:long_ordinal) %></p>
+<p>Time: <%= @flight.datetime.to_fs(:time) %></p>
+<p>Flight duration: <%= @flight.flight_duration.to_fs(:time) %></p>

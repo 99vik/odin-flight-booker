@@ -72,3 +72,5 @@ group :test do
 end
 
 gem "solargraph", "~> 0.49.0"
+
+gem "letter_opener", group: :development
